@@ -9,6 +9,7 @@ import "./sign-up-form.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
+
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -20,7 +21,10 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +35,6 @@ const SignUpForm = () => {
       return;
     }
     try {
-      console.log(email, password);
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
@@ -40,7 +43,6 @@ const SignUpForm = () => {
         displayName,
       });
     } catch (err) {
-      console.log("signup error", err);
       if (err.code === "aut/email-already-in-use") {
         alert("cannot create user, email already in use");
       } else {

@@ -4,6 +4,8 @@ import "./sign-in-form.styles.scss";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+
+
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -19,24 +21,20 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-
+      await signInAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
     } catch (err) {
       switch (err.code) {
@@ -55,7 +53,6 @@ const SignInForm = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event);
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -84,9 +81,9 @@ const SignInForm = () => {
           name="password"
         />
         <div className="buttons-container">
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">SIGN IN</Button>
           <Button buttonType="google" type="button" onClick={signInWithGoogle}>
-            Sign Up
+            GOOGLE SIGN IN
           </Button>
         </div>
       </form>

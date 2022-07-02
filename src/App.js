@@ -3,10 +3,8 @@ import Authentication from "./routes/authentication/authentication.component";
 
 import Home from "./routes/home/home.components";
 import Navigation from "./routes/navigation/navigation.component";
+import Shop from './routes/shop/shop.component'
 
-const Shop = () => {
-  return <div>I am the sales page</div>;
-};
 
 const App = () => {
   return (
