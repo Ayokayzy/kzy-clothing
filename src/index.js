@@ -7,15 +7,18 @@ import { UserProvider } from "./context/context.component";
 import { ProductProvider } from "./context/products.context";
 
 import "./index.scss";
+import { CartProvider } from "./context/cart.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-      <ProductProvider>
-        <App />
-      </ProductProvider>
+        <ProductProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
