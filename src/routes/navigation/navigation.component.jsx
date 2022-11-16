@@ -1,20 +1,28 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import { CartContext } from "../../context/cart.context";
-import { UserContext } from "../../context/context.component";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { setIsCartOpen } from "../../store/cart/cart.action";
 
-import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigation.styles.jsx";
+import {
+  NavigationContainer,
+  NavLinks,
+  NavLink,
+  LogoContainer,
+} from "./navigation.styles.jsx";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext)
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   function toggleIsCartOpen() {
-    return setIsCartOpen(!isCartOpen);
+    return dispatch(setIsCartOpen(!isCartOpen));
   }
 
   return (
@@ -24,9 +32,7 @@ const Navigation = () => {
           <CrwnLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/shop">
-            SHOP
-          </NavLink>
+          <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
             <span>
               <NavLink to="/auth" onClick={signOutUser}>
@@ -36,9 +42,7 @@ const Navigation = () => {
             </span>
           ) : (
             <span>
-              <NavLink to="/auth">
-                SIGN IN
-              </NavLink>
+              <NavLink to="/auth">SIGN IN</NavLink>
             </span>
           )}
           <CartIcon toggle={toggleIsCartOpen} />

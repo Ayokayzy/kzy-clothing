@@ -51,7 +51,6 @@ const SignUpForm = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event);
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -98,7 +97,7 @@ const SignUpForm = () => {
           name="confirmPassword"
         />
 
-        <Button type="inverted">Sign Up</Button>
+        <Button type="submit" buttonType="inverted">Sign Up</Button>
       </form>
     </SignUpContainer>
   );
